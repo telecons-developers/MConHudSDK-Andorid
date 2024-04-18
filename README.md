@@ -32,7 +32,7 @@ dependencies {
 ## Auth
 You can use the SDK after initializing it with the following code.
 ```kotlin
-// notification is for executing [MConHudCore]. If null is passed, the default Notification will be posted.
+// 성공적으로 initialize하기 위해서 네트워크가 사용 가능한 상태여야 합니다.
 MConHudSdk.shared().initialize(application= application, appkey= "appkey") { error ->
     if(error == null) {
        // authorization success
@@ -278,28 +278,49 @@ override fun receiveHudBuzzerLevel(buzzerLevel: BuzzerLevel) {
 }
 ```
 
+## Firmware Infomation
+[MConHudFirmwareDelegate]를 통해 현재 펌웨어 정보를 받을 수 있습니다.
+```kotlin
+class MainActivity : AppCompatActivity(), MConHudFirmwareDelegate {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        ...
+        // Set delegate
+        MConHudSdk.shared().hudFirmwareDelegate = this
+        MConHudSdk.shared().getFirmwareInfo()
+        ...
+    }
+}
+
+//
+// MConHudFirmwareDelegate
+//
+override fun receiveFirmwareInfo(firmwareInfo: FirmwareInfo) {
+    // modelName, firmwareVersion
+}
+```
+
 ## Firmware Update
+현재 펌웨어 버전이 최신 버전이 아닐 경우 최신 버전의 펌웨어 정보로 펌웨어를 업데이트하세요.
 ```kotlin
 val fwFile= File(firmwareFilePath)
 val filePath= fwFile.path
 val deviceName= "MHUD"
 val version= "212201"
 val fileSize= 794192
-val updateType= 0
 val crc= "0x5699"
 
 MConHudSdk.shared().startFirmwareUpdate(
   filePath= filePath,       // 펌웨어 파일 경로
   deviceName= deviceName,   // HUD의 블루투스 스캔 기기명
   version= version,         // 업데이트 할 펌웨어 버전
-  fileSize= fileSize,       // 펌웨어 파일의 사이즈
-  updateType= updateType,   // 펌웨어 업데이트 타입 (0: 일반 업데이트, 1: 강제 업데이트)
+  fileSize= fileSize,       // 업데이트 할 펌웨어 파일의 사이즈
   crc= crc                  // 체크썸
 )
 ```
-[MConHudFirmwareDelegate]를 통해 현재 펌웨어 정보와 펌웨어 업데이트 진행 및 완료 상태를 받을 수 있습니다.
+[MConHudFirmwareDelegate]를 통해 펌웨어 업데이트 진행 및 완료 상태를 받을 수 있습니다.
 ```kotlin
-class MainActivity : AppCompatActivity(), MConHudDelegate {
+class MainActivity : AppCompatActivity(), MConHudFirmwareDelegate {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ...
@@ -324,12 +345,4 @@ override fun firmwareUpdateComplete() {
 override fun firmwareUpdateError(error: MConHudSdkError) {
     // 펌웨어 업데이트 오류
 }
-
-override fun receiveFirmwareInfo(firmwareInfo: FirmwareInfo) {
-    // modelName, firmwareVersion, firmwareServerLastVersion, needUpdate
-}
 ```
-
-## License
-N/A. Update if needed.
-
