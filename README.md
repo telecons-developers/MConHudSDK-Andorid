@@ -4,7 +4,6 @@
   <img src="https://img.shields.io/badge/Platform-Android-green.svg"/> 
   <img src="https://img.shields.io/badge/Kotlin-1.6.20-orange.svg"/>    
   <img src="https://img.shields.io/badge/Release-v1.0-blue.svg"/>  
-  <img src="https://img.shields.io/badge/License-MIT-lightgray.svg"/>     
 </div>
 
 ## Installation
