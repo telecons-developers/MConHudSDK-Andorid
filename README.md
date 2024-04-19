@@ -182,7 +182,7 @@ MConHudSdk.shared().sendFuel(fuelCode= fuelCode)
 ```kotlin
 val clearCodes: ArrayList<ClearCode> = arrayListOf(ClearCode.TURN_BY_TURN)
 
-MConHudSdk.shared().sendJunctionViewInfo(
+MConHudSdk.shared().sendClear(
   clearCodes= clearCodes       // Provide the clear codes to be cleared in the form of an array.
 )
 ```
@@ -190,7 +190,7 @@ If multiple indicators need to be cleared simultaneously, provide the "clearCode
 ```kotlin
 val clearCodes: ArrayList<ClearCode> = arrayListOf(ClearCode.TURN_BY_TURN, ClearCode.SAFETY)
 
-MConHudSdk.shared().sendJunctionViewInfo(
+MConHudSdk.shared().sendClear(
   clearCodes= clearCodes       // Provide the clear codes to be cleared in the form of an array.
 )
 ```
