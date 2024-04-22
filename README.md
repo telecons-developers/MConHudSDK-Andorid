@@ -317,7 +317,7 @@ MConHudSdk.shared().startFirmwareUpdate(
   fileSize= fileSize,       // Firmware file size to be updated
   crc= crc                  // checksum
 )
-
+```
 [MConHudFirmwareDelegate] is to indicate the progress and complete status of the firmware update
 
 ```kotlin
