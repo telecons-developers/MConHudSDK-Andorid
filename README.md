@@ -7,11 +7,11 @@
 </div>
 
 ## Installation
-MConHudSdk를 사용하시려면 아래 절차에 따라 설정하세요:
+Follow the below steps for using MConHudSdk to set:
 
-Step 1. 프로젝트의 루트 디렉토리에 `libs` 폴더를 생성합니다. 이미 `libs` 폴더가 있는 경우 이 단계를 건너뛸 수 있습니다.
+Step 1. Create “libs” folder on root directory of the project. If “libs” folder is existed then may skip this step.
 
-Step 2. 프로젝트의 `build.gradle` 파일에 다음을 추가하세요:
+Step 2. Add the below at build.gradle file of the project:
 
 ```kotlin
 repositories {
@@ -21,7 +21,7 @@ repositories {
 }
 ```
 
-Step 3. dependencies에 AAR 라이브러리를 추가하세요:
+Step 3. Add AAR library at dependencies:
 
 ```
 dependencies {
@@ -32,7 +32,7 @@ dependencies {
 ## Auth
 You can use the SDK after initializing it with the following code.
 ```kotlin
-// 성공적으로 initialize하기 위해서 네트워크가 사용 가능한 상태여야 합니다.
+// To initialize completely, the workable network is needed.
 MConHudSdk.shared().initialize(application= application, appkey= "appkey") { error ->
     if(error == null) {
        // authorization success
@@ -279,7 +279,7 @@ override fun receiveHudBuzzerLevel(buzzerLevel: BuzzerLevel) {
 ```
 
 ## Firmware Infomation
-[MConHudFirmwareDelegate]를 통해 현재 펌웨어 정보를 받을 수 있습니다.
+Able to get the current information of firmware through [MConHudFirmwareDelegate].
 ```kotlin
 class MainActivity : AppCompatActivity(), MConHudFirmwareDelegate {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -301,7 +301,7 @@ override fun receiveFirmwareInfo(firmwareInfo: FirmwareInfo) {
 ```
 
 ## Firmware Update
-현재 펌웨어 버전이 최신 버전이 아닐 경우 최신 버전의 펌웨어 정보로 펌웨어를 업데이트하세요.
+Need to update the firmware at the latest version, if its version is not up-to-date.
 ```kotlin
 val fwFile= File(firmwareFilePath)
 val filePath= fwFile.path
@@ -311,14 +311,15 @@ val fileSize= 794192
 val crc= "0x5699"
 
 MConHudSdk.shared().startFirmwareUpdate(
-  filePath= filePath,       // 펌웨어 파일 경로
-  deviceName= deviceName,   // HUD의 블루투스 스캔 기기명
-  version= version,         // 업데이트 할 펌웨어 버전
-  fileSize= fileSize,       // 업데이트 할 펌웨어 파일의 사이즈
-  crc= crc                  // 체크썸
+  filePath= filePath,       //  Firmware file path
+  deviceName= deviceName,   // Scanned device name by BT for HUD
+  version= version,         // Firmware version to be updated
+  fileSize= fileSize,       // Firmware file size to be updated
+  crc= crc                  // checksum
 )
-```
-[MConHudFirmwareDelegate]를 통해 펌웨어 업데이트 진행 및 완료 상태를 받을 수 있습니다.
+
+[MConHudFirmwareDelegate] is to indicate the progress and complete status of the firmware update
+
 ```kotlin
 class MainActivity : AppCompatActivity(), MConHudFirmwareDelegate {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -335,14 +336,14 @@ class MainActivity : AppCompatActivity(), MConHudFirmwareDelegate {
 // MConHudFirmwareDelegate
 //
 override fun firmwareUpdate(progress: Int) {
-    // 펌웨어 업데이트 진행률(%)
+    // Update progress rate of FW
 }
 
 override fun firmwareUpdateComplete() {
-    // 펌웨어 업데이트 완료
+    // FW update is completed
 }
 
 override fun firmwareUpdateError(error: MConHudSdkError) {
-    // 펌웨어 업데이트 오류
+    // FW update got an error
 }
 ```
