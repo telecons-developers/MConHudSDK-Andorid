@@ -1,3 +1,7 @@
+# Sample App Firmware Update guide
+
+https://www.youtube.com/watch?v=2Dz-NxwG8jw
+
 # MConHudSdk
 <div align="left">
   <img src="https://img.shields.io/badge/Kotlin-0095D5?style=flat&logo=kotlin&logoColor=white"/>
